@@ -60,7 +60,7 @@ stages:
   jobs:
   - deployment: Deploy
     displayName: Deploy
-    environment: $(environmentName)
+    environment: "Teste"
     pool:
       vmImage: $(vmImageName)
     strategy:
