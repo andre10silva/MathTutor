@@ -58,16 +58,6 @@ class EchoBot extends ActivityHandler {
    
         conversationData.endDialog = await this.mathTutor.isDialogComplete();
 
-        // if (conversationData.endDialog) {
-        //     // If the MathTutor dialog is complete, switch to the QuestionsDialog
-        //     await this.questionsDialog.run(context, this.dialogState);
-        //     conversationData.endDialog = await this.questionsDialog.isDialogComplete();
-        // } else {
-        //     // If the MathTutor dialog is not complete, continue with it
-        //     await this.mathTutor.run(context, this.dialogState);
-        //     conversationData.endDialog = await this.mathTutor.isDialogComplete();
-        // }
-
         await this.conversationData.set(context, conversationData);
     }
 }

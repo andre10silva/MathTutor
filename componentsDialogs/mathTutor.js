@@ -74,7 +74,7 @@ async function askQuestion(step, questionType, questionNumber) {
       const promptOptions = {
         prompt: question.question,
         choices: question.answer.map((answer) => answer.text),
-        retryPrompt: "Selecione uma das opções",
+        retryPrompt: "Selecione uma das opções:",
         style: ActionTypes.ImBack,
       };
       // Mostra a pergunta e espera pela resposta do usuário
@@ -196,15 +196,15 @@ class MathTutor extends ComponentDialog {
         this.addDialog(new DateTimePrompt(DATETIME_PROMPT));
 
         this.addDialog(new WaterfallDialog(WATERFALL_DIALOG, [
-            this.start.bind(this),
-            this.login.bind(this),
-            this.validateEmail.bind(this),
-            this.loginStep2.bind(this),
-            this.loginStep3.bind(this),
-            this.loginStep4.bind(this),
-            this.loginStep5.bind(this),
-            this.confirmStep.bind(this),
-            this.summaryStep.bind(this),
+            // this.start.bind(this),
+            // this.login.bind(this),
+            // this.validateEmail.bind(this),
+            // this.loginStep2.bind(this),
+            // this.loginStep3.bind(this),
+            // this.loginStep4.bind(this),
+            // this.loginStep5.bind(this),
+            // this.confirmStep.bind(this),
+            // this.summaryStep.bind(this),
             this.questions.bind(this),
             this.questions_1.bind(this),
             this.answerQuestion_1.bind(this),
@@ -263,180 +263,180 @@ class MathTutor extends ComponentDialog {
         }
     }
     
-    async start(step) {
-      return await step.prompt(CHOICE_PROMPT, {
-          prompt: 'Escolha uma das opções:',
-          choices: ChoiceFactory.toChoices(['Iniciar Sessão', 'Criar conta'])
-      });
-    }
+  //   async start(step) {
+  //     return await step.prompt(CHOICE_PROMPT, {
+  //         prompt: 'Escolha uma das opções:',
+  //         choices: ChoiceFactory.toChoices(['Iniciar Sessão', 'Criar conta'])
+  //     });
+  //   }
 
-    async login(step) {
-        step.values.choice = step.result.value;
+  //   async login(step) {
+  //       step.values.choice = step.result.value;
         
-        if (step.values.choice === 'Iniciar Sessão') {
-            return await step.prompt(TEXT_PROMPT, 'Insira o email:');
-        } else {
-            return await step.prompt(TEXT_PROMPT, 'Insira o seu nome:');
-        }
-    }
+  //       if (step.values.choice === 'Iniciar Sessão') {
+  //           return await step.prompt(TEXT_PROMPT, 'Insira o email:');
+  //       } else {
+  //           return await step.prompt(TEXT_PROMPT, 'Insira o seu nome:');
+  //       }
+  //   }
 
-    async validateEmail(step) {
+  //   async validateEmail(step) {
 
-      if (step.values.choice === 'Iniciar Sessão') {
-          step.values.emailLogin = step.result && step.result.value;
-          const emailLogin = step.context.activity.text
+  //     if (step.values.choice === 'Iniciar Sessão') {
+  //         step.values.emailLogin = step.result && step.result.value;
+  //         const emailLogin = step.context.activity.text
         
-          // Consulta na base de dados se o email já existe
-          const emailExists = await usersCollection.findOne({ email: emailLogin });
+  //         // Consulta na base de dados se o email já existe
+  //         const emailExists = await usersCollection.findOne({ email: emailLogin });
           
-          if (emailExists) {
-            // O email já existe na base de dados, pode prosseguir com o processo de autenticação
-            return await step.next();
-          } else {
-            // O email não existe na base de dados, retorna uma mensagem para o utilizador
-            await step.context.sendActivity('O email fornecido não está registado. Por favor, verifique o email ou crie uma nova conta.');
-            // Encerre o diálogo ou redirecione para uma etapa anterior, se necessário
-            return await step.endDialog();
-          }
+  //         if (emailExists) {
+  //           // O email já existe na base de dados, pode prosseguir com o processo de autenticação
+  //           return await step.next();
+  //         } else {
+  //           // O email não existe na base de dados, retorna uma mensagem para o utilizador
+  //           await step.context.sendActivity('O email fornecido não está registado. Por favor, verifique o email ou crie uma nova conta.');
+  //           // Encerre o diálogo ou redirecione para uma etapa anterior, se necessário
+  //           return await step.endDialog();
+  //         }
 
-      }else{
-        step.values.name = step.result;
-        return await step.next();
-      }    
-    }
+  //     }else{
+  //       step.values.name = step.result;
+  //       return await step.next();
+  //     }    
+  //   }
     
 
-  async loginStep2(step) {
+  // async loginStep2(step) {
     
-    if (step.values.choice === 'Iniciar Sessão') {
-      return await step.next();
+  //   if (step.values.choice === 'Iniciar Sessão') {
+  //     return await step.next();
       
-    } else {
-      return await step.prompt(NUMBER_PROMPT, 'Insira o número de estudante:');  
-    }
-  }
+  //   } else {
+  //     return await step.prompt(NUMBER_PROMPT, 'Insira o número de estudante:');  
+  //   }
+  // }
 
-  async loginStep3(step) {
-    step.values.number = step.result;
+  // async loginStep3(step) {
+  //   step.values.number = step.result;
 
-    if (step.values.choice === 'Iniciar Sessão') {
-      return await step.next();
+  //   if (step.values.choice === 'Iniciar Sessão') {
+  //     return await step.next();
       
-    } else {
-      return await step.prompt(TEXT_PROMPT, 'Insira o email:');
-    }
-  }
+  //   } else {
+  //     return await step.prompt(TEXT_PROMPT, 'Insira o email:');
+  //   }
+  // }
 
-  async loginStep4(step) {
-    step.values.email = step.result;
+  // async loginStep4(step) {
+  //   step.values.email = step.result;
 
-    if (step.values.choice === 'Iniciar Sessão') {
-      return await step.next();
+  //   if (step.values.choice === 'Iniciar Sessão') {
+  //     return await step.next();
       
-    } else {
-      return await step.prompt(CHOICE_PROMPT, {
-        prompt: 'Qual é o seu ciclo de estudos?',
-        choices: ChoiceFactory.toChoices(['CTeSP', 'Licenciatura'])
-    });
-    }
-  }
+  //   } else {
+  //     return await step.prompt(CHOICE_PROMPT, {
+  //       prompt: 'Qual é o seu ciclo de estudos?',
+  //       choices: ChoiceFactory.toChoices(['CTeSP', 'Licenciatura'])
+  //   });
+  //   }
+  // }
 
-  async loginStep5(step) {
-    step.values.cycleOfStudies = step.result;
-    if (step.values.choice === 'Iniciar Sessão') {
-      return await step.next();
+  // async loginStep5(step) {
+  //   step.values.cycleOfStudies = step.result;
+  //   if (step.values.choice === 'Iniciar Sessão') {
+  //     return await step.next();
       
-    } else {
-      step.values.cycleOfStudies = step.result.value;
-      const cycleOfStudies = step.result.value;
-      let coursePrompt;
-      switch (cycleOfStudies) {
-          case 'CTeSP':
-              coursePrompt = {
-                  prompt: 'Qual é o teu curso?',
-                  choices: ['Contabilidade e Fiscalidade', 'Eletrónica e Automação Industrial', 'Energias Renováveis e Eficiência Energética', 'Gestão de PME', 'Gestão de Turismo', 'Gestão e Informática Aplicada aos Negócios', 'Marketing Digital', 'Redes e Sistemas Informáticos', 'Tecnologia Mecatrónica', 'Tecnologias e Programação de Sistemas de Informação']
-              };
-              break;
-          case 'Licenciatura':
-              coursePrompt = {
-                  prompt: 'Qual é o teu curso?',
-                  choices: ['Engenharia Informática', 'Engenharia Mecânica', 'Engenharia Eletrónica e de Automação', 'Contabilidade', 'Gestão', 'Turismo e Negócios Sustentáveis']
-              };
-              break;
-          default:
-              break;
-      }
-      return await step.prompt(CHOICE_PROMPT, coursePrompt);
-    }
-  }
+  //   } else {
+  //     step.values.cycleOfStudies = step.result.value;
+  //     const cycleOfStudies = step.result.value;
+  //     let coursePrompt;
+  //     switch (cycleOfStudies) {
+  //         case 'CTeSP':
+  //             coursePrompt = {
+  //                 prompt: 'Qual é o teu curso?',
+  //                 choices: ['Contabilidade e Fiscalidade', 'Eletrónica e Automação Industrial', 'Energias Renováveis e Eficiência Energética', 'Gestão de PME', 'Gestão de Turismo', 'Gestão e Informática Aplicada aos Negócios', 'Marketing Digital', 'Redes e Sistemas Informáticos', 'Tecnologia Mecatrónica', 'Tecnologias e Programação de Sistemas de Informação']
+  //             };
+  //             break;
+  //         case 'Licenciatura':
+  //             coursePrompt = {
+  //                 prompt: 'Qual é o teu curso?',
+  //                 choices: ['Engenharia Informática', 'Engenharia Mecânica', 'Engenharia Eletrónica e de Automação', 'Contabilidade', 'Gestão', 'Turismo e Negócios Sustentáveis']
+  //             };
+  //             break;
+  //         default:
+  //             break;
+  //     }
+  //     return await step.prompt(CHOICE_PROMPT, coursePrompt);
+  //   }
+  // }
 
 
-    async confirmStep(step){ 
-        await new Promise(resolve => setTimeout(resolve, 2000)); // Continua após 2 segundos
-        step.values.course = step.result.value;       
+  //   async confirmStep(step){ 
+  //       await new Promise(resolve => setTimeout(resolve, 2000)); // Continua após 2 segundos
+  //       step.values.course = step.result.value;       
 
-        var msg = `
-        Registo criado!
+  //       var msg = `
+  //       Registo criado!
  
-        Nome:    ${step.values.name}
-        Número:  ${step.values.number}
-        Email:   ${step.values.email}
-        Ensino:  ${step.values.cycleOfStudies}
-        Curso:   ${step.values.course}
-        `;
+  //       Nome:    ${step.values.name}
+  //       Número:  ${step.values.number}
+  //       Email:   ${step.values.email}
+  //       Ensino:  ${step.values.cycleOfStudies}
+  //       Curso:   ${step.values.course}
+  //       `;
 
-        await step.context.sendActivity(msg);
-        return await step.prompt(CHOICE_PROMPT, 'Os dados estão corretos?', ["Sim", "Não"]); 
-    }
+  //       await step.context.sendActivity(msg);
+  //       return await step.prompt(CHOICE_PROMPT, 'Os dados estão corretos?', ["Sim", "Não"]); 
+  //   }
 
-    async summaryStep(step) {
+    // async summaryStep(step) {
       
-      console.log(step.result);
-        if (step.result.value === "Sim"){                
-            try {
-                // Connect to MongoDB server
-                await client.connect();
-                // console.log('Connected to MongoDB');
+    //   console.log(step.result);
+    //     if (step.result.value === "Sim"){                
+    //         try {
+    //             // Connect to MongoDB server
+    //             await client.connect();
+    //             // console.log('Connected to MongoDB');
                 
-                // ### GUARDA NA COLEÇÃO USERS OS DADOS DO UTILIZADOR ###
+    //             // ### GUARDA NA COLEÇÃO USERS OS DADOS DO UTILIZADOR ###
 
-                // Select database and collection
-                const database = client.db(databaseName);
-                const collection = database.collection("users");
+    //             // Select database and collection
+    //             const database = client.db(databaseName);
+    //             const collection = database.collection("users");
         
-                // Create a new document to be inserted into the collection
-                const newDoc = {
-                    name: step.values.name,
-                    number: step.values.number,
-                    email: step.values.email,
-                    cycleOfStudies: step.values.cycleOfStudies,
-                    course: step.values.course
-                };                  
+    //             // Create a new document to be inserted into the collection
+    //             const newDoc = {
+    //                 name: step.values.name,
+    //                 number: step.values.number,
+    //                 email: step.values.email,
+    //                 cycleOfStudies: step.values.cycleOfStudies,
+    //                 course: step.values.course
+    //             };                  
         
-                // Insert the new document into the collection
-                const result = await collection.insertOne(newDoc);
-                console.log(`${result.insertedCount} document(s) inserted into the collection`);
+    //             // Insert the new document into the collection
+    //             const result = await collection.insertOne(newDoc);
+    //             console.log(`${result.insertedCount} document(s) inserted into the collection`);
 
-                return await step.next();
+    //             return await step.next();
 
-            } catch (err) {
-                console.error(err);
-            }
-      }else{
-          // FALTA FAZER O ELSE!!
-      }
-    }
+    //         } catch (err) {
+    //             console.error(err);
+    //         }
+    //   }else{
+    //       // FALTA FAZER O ELSE!!
+    //   }
+    // }
       
 
     async questions(step) {
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Continua após 2 segundos
-      if (step.values.choice === 'Iniciar Sessão') {
-         // Realize uma consulta na base de dados para verificar se o email já existe
-         const userName = await usersCollection.findOne({email: step.values.emailLogin});
-         await step.context.sendActivity(`Bem-vindo ${userName.name}!`)
-      }else{
-        await step.context.sendActivity(`Bem-vindo ${step.values.name}!`)
-      }
+      // await new Promise(resolve => setTimeout(resolve, 2000)); // Continua após 2 segundos
+      // if (step.values.choice === 'Iniciar Sessão') {
+      //    // Realize uma consulta na base de dados para verificar se o email já existe
+      //    const userName = await usersCollection.findOne({email: step.values.emailLogin});
+      //    await step.context.sendActivity(`Bem-vindo ${userName.name}!`)
+      // }else{
+      //   await step.context.sendActivity(`Bem-vindo ${step.values.name}!`)
+      // }
         await new Promise(resolve => setTimeout(resolve, 2000)); // Continua após 2 segundos
         await step.context.sendActivity("Vou fazer algumas perguntas sobre diversos conteúdos e só precisas de escolher a opção correta. Não te preocupes se não souberes a resposta de alguma pergunta. Podes sempre tentar novamente. Vamos lá começar!");
         return await step.next();
