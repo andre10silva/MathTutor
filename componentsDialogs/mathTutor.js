@@ -816,6 +816,7 @@ class MathTutor extends ComponentDialog {
           return await step.next();
         }
     }
+    
 
       async documents(step) {
         await new Promise(resolve => setTimeout(resolve, 2000));
