@@ -669,6 +669,7 @@ class MathTutor extends ComponentDialog {
         
         return await step.next();
     }
+    
 
     // PERGUNTA 8
     async questions_8(step) {
