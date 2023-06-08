@@ -29,13 +29,11 @@ server.use(restify.plugins.bodyParser());
 
 // Handle root (/) route
 server.get('/', (req, res) => {
-    const adapter = new BotFrameworkAdapter();
-    const bot = new EchoBot(); // Substitua por seu objeto de bot personalizado
-
-    adapter.processActivity(req, res, async (context) => {
-        await bot.run(context);
+    app.listen(process.env.PORT || 3978, () => {
+//         console.log(`Redirecting to app.js`);
     });
 });
+
 
 server.listen(process.env.port || process.env.PORT || 3978, () => {
     console.log(`\n${ server.name } listening to ${ server.url }`);
