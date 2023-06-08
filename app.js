@@ -29,7 +29,12 @@ server.use(restify.plugins.bodyParser());
 
 // Handle root (/) route
 server.get('/', (req, res) => {
-    res.send('Hello, world!'); // Replace this with your desired response
+    const adapter = new BotFrameworkAdapter();
+    const bot = new EchoBot(); // Substitua por seu objeto de bot personalizado
+
+    adapter.processActivity(req, res, async (context) => {
+        await bot.run(context);
+    });
 });
 
 server.listen(process.env.port || process.env.PORT || 3978, () => {
