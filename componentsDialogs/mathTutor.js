@@ -36,7 +36,6 @@ let scoreNewTest = 0;
 const dialogSet = new DialogSet();
 dialogSet.add(new ChoicePrompt(CHOICE_PROMPT));
 
-
 /// Função para fazer perguntas genéricas
 async function askQuestion(step, questionType, questionNumber) {
     try {
@@ -669,7 +668,6 @@ class MathTutor extends ComponentDialog {
         
         return await step.next();
     }
-    
 
     // PERGUNTA 8
     async questions_8(step) {
