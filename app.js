@@ -27,6 +27,14 @@ const { EchoBot } = require('./bot');
 const server = restify.createServer();
 server.use(restify.plugins.bodyParser());
 
+// Handle root (/) route
+server.get('/', (req, res) => {
+    app.listen(process.env.PORT || 3978, () => {
+//         console.log(`Redirecting to app.js`);
+    });
+});
+
+
 server.listen(process.env.port || process.env.PORT || 3978, () => {
     console.log(`\n${ server.name } listening to ${ server.url }`);
     console.log('\nGet Bot Framework Emulator: https://aka.ms/botframework-emulator');
